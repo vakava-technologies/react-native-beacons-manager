@@ -28,6 +28,6 @@ repositories {
 
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
-    compile 'com.facebook.react:react-native:0.12.+'
+    compile 'com.facebook.react:react-native:0.63+'
     compile 'org.altbeacon:android-beacon-library:2.9.2'
 }

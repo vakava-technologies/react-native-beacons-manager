@@ -49,7 +49,12 @@ public class BeaconsAndroidModule extends ReactContextBaseJavaModule implements 
         this.mApplicationContext = reactContext.getApplicationContext();
         this.mBeaconManager = BeaconManager.getInstanceForApplication(mApplicationContext);
         // Detect iBeacons ( http://stackoverflow.com/questions/25027983/is-this-the-correct-layout-to-detect-ibeacons-with-altbeacons-android-beacon-li )
-        addParser("m:0-3=4c000215,i:4-19,i:20-21,i:22-23,p:24-24");
+        // Custom layout for wellcore W920N beacons
+        // 33: temperature sign
+        // 34: temperature
+        // 35: battery
+        // 36: humidity
+        addParser("m:0-3=4c000215,i:4-19,i:20-21,i:22-23,p:24-24,d:33-33,d:34-34,d:35-35,d:36-36");
         mBeaconManager.bind(this);
     }
 
@@ -294,6 +299,7 @@ public class BeaconsAndroidModule extends ReactContextBaseJavaModule implements 
             b.putInt("rssi", beacon.getRssi());
             b.putDouble("distance", beacon.getDistance());
             b.putString("proximity", getProximity(beacon.getDistance()));
+            b.putString("dataFields", beacon.getDataFields().toString());
             a.pushMap(b);
         }
         map.putArray("beacons", a);
